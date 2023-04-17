@@ -16,7 +16,29 @@ RUN ["/bin/bash", "-c", "apt-get -y install nano"]
 
 RUN ["/bin/bash", "-c", "sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin Yes/g' /etc/ssh/sshd_config"]
 
-RUN ["/bin/bash", "-c", "echo  'root:MyPassword' | chpasswd"]  # SUPER JUSQU'ICI 
-
+RUN ["/bin/bash", "-c", "echo  'root:MyPassword' | chpasswd"]
 
 RUN ["/bin/bash", "-c", "apt-get -y install flex bison g++-multilib build-essential automake libcurl4-openssl-dev libmagic-dev"]
+
+RUN ["/bin/bash", "-c", "mkdir -p /workspace/latplan"]
+
+WORKDIR /workspace/latplan
+
+RUN ["/bin/bash", "-c", "conda activate latplan"]
+
+RUN git clone -b release https://github.com/roswell/roswell.git
+RUN cd roswell
+RUN ["/bin/bash", "-c", "sh bootstrap && ./configure && make && make install && ros setup"]
+
+
+RUN ["/bin/bash", "-c", "ros install sbcl-bin/2.3.2"]
+
+RUN ["/bin/bash", "-c", "ros install arrival"]
+
+ENV PATH="/root/.roswell/bin:$PATH"
+
+RUN ["/bin/bash", "-c", "ros dynamic-space-size=8000 install numcl eazy-gnuplot magicffi dataloader"]
+
+RUN ["/bin/bash", "-c", "make -j 1 -C lisp"]
+
+RUN ["/bin/bash", "-c", "pip install git+https://github.com/LBonassi95/downward.git@only-grounder-refactoring"]
