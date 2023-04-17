@@ -31,7 +31,9 @@ SHELL ["conda", "run", "-n", "latplan", "/bin/bash", "-c"]
 # RUN ["/bin/bash", "-c", "conda activate latplan"]
 
 RUN git clone -b release https://github.com/roswell/roswell.git
-RUN cd roswell
+
+WORKDIR /workspace/latplan/roswell
+
 RUN ["/bin/bash", "-c", "sh bootstrap && ./configure && make && make install && ros setup"]
 
 
