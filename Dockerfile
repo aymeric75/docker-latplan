@@ -19,4 +19,4 @@ RUN ["/bin/bash", "-c", "sed -i 's/#PermitRootLogin prohibit-password/PermitRoot
 RUN ["/bin/bash", "-c", "echo  'root:MyPassword' | chpasswd"]  # SUPER JUSQU'ICI 
 
 
-RUN ["/bin/bash", "-c", "apt-get -y install flex bison g++-multilib build-essential automake libcurl4-openssl-dev gnuplot libmagic-dev"]
+RUN ["/bin/bash", "-c", "apt-get -y install flex bison g++-multilib build-essential automake libcurl4-openssl-dev libmagic-dev"]
