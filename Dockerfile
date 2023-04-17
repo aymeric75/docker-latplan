@@ -26,7 +26,9 @@ WORKDIR /workspace/latplan
 
 RUN ["/bin/bash", "-c", "conda create --name latplan"]
 
-RUN ["/bin/bash", "-c", "conda activate latplan"]
+SHELL ["conda", "run", "-n", "latplan", "/bin/bash", "-c"]
+
+# RUN ["/bin/bash", "-c", "conda activate latplan"]
 
 RUN git clone -b release https://github.com/roswell/roswell.git
 RUN cd roswell
