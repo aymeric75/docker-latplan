@@ -47,6 +47,9 @@ RUN ["/bin/bash", "-c", "ros dynamic-space-size=8000 install numcl eazy-gnuplot 
 
 WORKDIR /workspace/latplan
 
-RUN make -j 1 -C lisp
+# RUN make -j 1 -C lisp
 
 RUN ["/bin/bash", "-c", "pip install git+https://github.com/LBonassi95/downward.git@only-grounder-refactoring"]
+
+RUN ["/bin/bash", "-c", "pip install matplotlib protobuf==3.20 keras==2.2.5 keras_radam imageio scikit-image progressbar2"]
+
