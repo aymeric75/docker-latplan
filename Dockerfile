@@ -45,6 +45,8 @@ ENV PATH="/root/.roswell/bin:$PATH"
 
 RUN ["/bin/bash", "-c", "ros dynamic-space-size=8000 install numcl eazy-gnuplot magicffi dataloader"]
 
+WORKDIR /workspace/latplan/lisp
+
 RUN ["/bin/bash", "-c", "make -j 1 -C lisp"]
 
 RUN ["/bin/bash", "-c", "pip install git+https://github.com/LBonassi95/downward.git@only-grounder-refactoring"]
