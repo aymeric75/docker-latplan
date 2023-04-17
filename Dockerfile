@@ -18,7 +18,7 @@ RUN ["/bin/bash", "-c", "sed -i 's/#PermitRootLogin prohibit-password/PermitRoot
 
 RUN ["/bin/bash", "-c", "echo  'root:MyPassword' | chpasswd"]
 
-RUN ["/bin/bash", "-c", "apt-get -y install flex bison g++-multilib build-essential automake libcurl4-openssl-dev libmagic-dev"]
+RUN ["/bin/bash", "-c", "apt-get -y install flex bison g++-multilib build-essential automake libcurl4-openssl-dev libmagic-dev libpng-dev"]
 
 RUN ["/bin/bash", "-c", "mkdir -p /workspace/latplan"]
 
