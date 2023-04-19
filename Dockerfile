@@ -10,9 +10,7 @@ ENV CONDA_DIR /root/anaconda3
 
 RUN /bin/bash /workspace/Anaconda3-2023.03-Linux-x86_64.sh -b -p /root/anaconda3
 
-ENV PATH=$CONDA_DIR/bin:$PATH
-
-RUN echo 'export PATH=/root/anaconda3/bin:$PATH' >> ~/.bashrc
+ENV PATH="$PATH:/root/anaconda3/bin"		
 
 RUN ["/bin/bash", "-c", "apt-get -y install nano"]
 
@@ -26,9 +24,9 @@ RUN ["/bin/bash", "-c", "mkdir -p /workspace/latplan"]
 
 WORKDIR /workspace/latplan
 
-RUN ["/bin/bash", "-c", "conda create --name latplan"]
+RUN ["/bin/bash", "-c", "/root/anaconda3/bin/conda create --name latplan"]
 
-SHELL ["conda", "run", "-n", "latplan", "/bin/bash", "-c"]
+SHELL ["/root/anaconda3/bin/conda", "run", "-n", "latplan", "/bin/bash", "-c"]
 
 # RUN ["/bin/bash", "-c", "conda activate latplan"]
 
@@ -38,18 +36,16 @@ WORKDIR /workspace/latplan/roswell
 
 RUN ["/bin/bash", "-c", "sh bootstrap && ./configure && make && make install && ros setup"]
 
-
 RUN ["/bin/bash", "-c", "ros install sbcl-bin/2.3.2"]
 
 RUN ["/bin/bash", "-c", "ros install arrival"]
 
-ENV PATH="/root/.roswell/bin:$PATH"
+ENV PATH="$PATH:/root/.roswell/bin"
+
 
 RUN ["/bin/bash", "-c", "ros dynamic-space-size=8000 install numcl eazy-gnuplot magicffi dataloader"]
 
 WORKDIR /workspace/latplan
-
-# RUN make -j 1 -C lisp
 
 RUN ["/bin/bash", "-c", "pip install git+https://github.com/LBonassi95/downward.git@only-grounder-refactoring"]
 
