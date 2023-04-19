@@ -12,6 +12,8 @@ RUN /bin/bash /workspace/Anaconda3-2023.03-Linux-x86_64.sh -b -p /root/anaconda3
 
 ENV PATH=$CONDA_DIR/bin:$PATH
 
+RUN echo 'export PATH=/root/anaconda3/bin:$PATH' >> ~/.bashrc
+
 RUN ["/bin/bash", "-c", "apt-get -y install nano"]
 
 RUN ["/bin/bash", "-c", "sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin Yes/g' /etc/ssh/sshd_config"]
